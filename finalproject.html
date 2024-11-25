@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .header{
+            background-color: black;
+            color: white;
+            font-size: 35px;
+            padding: 20px;
+            text-align: center;
+        }
+        .col1{
+            min-height: 100vh;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .col2{
+            min-height: 100vh;
+            flex-grow: 1;
+
+        }
+        .col3{
+            min-height: 100vh;
+            flex-grow: 4;
+        }
+        .container{
+            display: flex;
+        }
+        
+        .box{
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-top: 20px;
+        }
+        .box input{
+            padding: 10px 20px;
+        }
+        .box button{
+            padding: 10px;
+        }
+        table{
+            margin-left:40px ;
+            margin-top:20px ;
+            border-collapse: collapse;
+        }
+        table th , table td{
+            padding: 5px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Student Registeration System</div>
+    <div class="container">
+        <div class="col1">
+            <div class="box">
+                <input type="text" placeholder="Enter first name" id="f">
+                <input type="text" placeholder="Enter last name" id="l">
+                <input type="text" placeholder="Enter age" id="a">
+                <input type="text" placeholder="Enter country" id="c">
+                <input type="text" placeholder="Enter phone number" id="p">
+                <input type="text" placeholder="Enter email"id="e">
+                <button id="re" onclick="add()">Register</button>
+            </div>
+        </div>
+        <div class="col2">
+            <div class="box">
+                <input type="text" placeholder="Enter Age" id="sa">
+                <input type="text" placeholder="Enter Country" id="sc">
+                <button onclick="search()">Search</button>
+                <button onclick="show()">Show all</button>
+            </div>
+        </div>
+        <div class="col3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Country</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody id="tablebody">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        let a = [];
+        const first = document.getElementById("f");
+        const last = document.getElementById("l");
+        const age = document.getElementById("a");
+        const country = document.getElementById("c");
+        const phone = document.getElementById("p");
+        const email = document.getElementById("e");
+        function add(){
+          let obj = {};
+          obj.first = first.value;  
+          obj.last = last.value;  
+          obj.age = age.value;  
+          obj.country = country.value;  
+          obj.phone = phone.value;  
+          obj.email = email.value;
+          a.push(obj);
+          let counter = 1;
+          let b = a.map((e) => {
+            return `<tr>
+                <td> ${counter++} </td>
+                <td> ${e.first} </td>
+                <td> ${e.last} </td>
+                <td> ${e.age} </td>
+                <td> ${e.country} </td>
+                <td> ${e.phone} </td>
+                <td> ${e.email} </td>
+                </tr>
+            `
+          });
+          console.log(b);
+          const tbody = document.getElementById("tablebody");
+          tbody.innerHTML = b.join(" ");
+        }
+        function search(){
+            const x = document.getElementById("sa").value;
+            const y = document.getElementById("sc").value;
+            let b = a.filter((e) => {
+                if (e.age == x && e.country == y) return true;
+                else return false;
+            });
+            
+            let count = 1;
+            let t = b.map((e) => {
+                return`<tr>
+                    <td>${count++}</td>
+                    <td>${e.first}</td>
+                    <td>${e.last}</td>
+                    <td>${e.age}</td>
+                    <td>${e.country}</td>
+                    <td>${e.phone}</td>
+                    <td>${e.email}</td>
+                    </tr>`
+            });
+            const tbody = document.getElementById("tablebody");
+            tbody.innerHTML = t.join(" ");
+        }
+        function show(){
+            let count = 1;
+            let c = a.map((e) => {
+                return`<tr>
+                    <td>${count++}</td>
+                    <td>${e.first}</td>
+                    <td>${e.last}</td>
+                    <td>${e.age}</td>
+                    <td>${e.country}</td>
+                    <td>${e.phone}</td>
+                    <td>${e.email}</td>
+                    </tr>`
+            });
+            document.getElementById("tablebody").innerHTML = c.join(" ");
+        }
+    </script>
+</body>
+</html>
